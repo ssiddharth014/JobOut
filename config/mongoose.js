@@ -1,6 +1,6 @@
 const mongoose= require('mongoose');
 
-mongoose.connect("mongodb+srv://foodshalauser:foodshala@foodshalacluster-xsd3l.mongodb.net/test?retryWrites=true&w=majority");
+mongoose.connect("mongodb+srv://foodshalauser:foodshala@foodshalacluster-xsd3l.mongodb.net/test?retryWrites=true&w=majority",{useUnifiedTopology:true,useNewUrlParser:true});
 
 const db=mongoose.connection;
 
