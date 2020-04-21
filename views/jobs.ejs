@@ -1,0 +1,111 @@
+
+
+<div id="posts-container-list" class="container-fluid pt-2  ">
+
+	<div class="section_header text-center ">
+			Jobs for daily wagers
+		</div>
+<div class="container " >
+	<div class="row "  >
+		<% for (post of posts) {%>
+		<%if(post.employmentType==x){%>
+
+
+
+		<div class="col-lg-3 col-md-3 col-6 mt-3 border border-dark mr-2">
+
+
+           
+      
+           <li  id="post-<%=post._id%>">
+           <p>
+             <%=post.employmentType %>
+             <br>
+             <%=post.profile%>
+             <br>
+             <%=post.salary%>
+             <br>
+             <%=post.requirements%>
+             <small>
+               <%=post.user.name %>
+            
+             </small>
+             <br>
+             
+<%if(locals.user && locals.user.type!="recruiter"){%>
+             <button >Apply</button>
+             <%}else {%>
+             <form action="/users/jobseekerSignin" method="get">
+             	<button>Apply</button>
+             </form>
+             <%}%>
+             
+           </p>
+
+<%if(locals.user && locals.user.id==post.user.id){%>
+
+<a class="delete-post-button" href="/posts/destroy/<%=post.id%>">X </a>
+
+
+<%}%>
+
+<div class="post_comments">
+
+<%if (locals.user){%>
+<form action ="/comments/create/<%= post._id%>" method="post">
+
+
+<input  type="text" name="content" placeholder="Type here..." >
+<input  type="hidden" name="post" value="<%= post._id%>" >
+<input type="submit" value="Add comment">
+
+</form>
+
+
+<%}%>
+
+
+
+
+
+
+<div>
+<ul>
+<%for(comments of post.comment){%>
+
+<li >
+<p>
+<%=comments.content%>
+<br>
+<small>
+<%=comments.user.name%>
+</small>
+</p>
+<%if (locals.user && locals.user.id==comments.user.id){%>
+<form action="/comments/destroy/<%=comments._id%>" method="post">
+
+<input type="submit" value="Delete Comment">
+</form>
+<%}%>
+</li>
+<%}%>
+</ul>
+</div>
+
+</div>
+
+
+
+
+
+           </li>
+       
+
+		</div>
+		<%}%>
+		 <%}%>
+	</div>
+</div>
+
+  
+</div>
