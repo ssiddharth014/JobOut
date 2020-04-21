@@ -8,7 +8,7 @@ const app=express();
 const expressLayouts= require('express-ejs-layouts');
 const db=require('./config/mongoose');
 
-//db();
+db();
 
 // used for session cookie
 const session = require('express-session');
@@ -21,7 +21,7 @@ const passport=require('passport');
 
 const passportLocal= require('./config/passport-local-strategy');
 
-const MongoStore=require('connect-Mongo')(session);
+//const MongoStore=require('connect-Mongo')(session);
 //middleware for post request
 app.use(express.urlencoded());
 //middleware for cookie
@@ -45,7 +45,7 @@ app.use(express.static('./assets'));
 
 // middlewaare 
 // mongo store us used to store the sessio  cookie in the db
-
+/*
 app.use(session({
     name:'social-house',
     secret:"blahsomething",
@@ -65,7 +65,7 @@ app.use(session({
     )
 }));
 
-
+*/
 app.use(passport.initialize());
 app.use(passport.session());
 // this miidleware calls the setauthenticated function and usees the session cookie to feed the view with users info
