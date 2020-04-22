@@ -21,7 +21,9 @@ const passport=require('passport');
 
 const passportLocal= require('./config/passport-local-strategy');
 
-//const MongoStore=require('connect-Mongo')(session);
+const MongoStore=require('connect-Mongo')(session);
+const flash= require('connect-flash');
+const customMware= require('./config/middleware');
 //middleware for post request
 app.use(express.urlencoded());
 //middleware for cookie
@@ -29,7 +31,7 @@ app.use(cookieParser());
 
 // middleware for layouts
 app.use(expressLayouts);
-// set up of view engine
+// set up of view engines
 
 app.set('view engine','ejs');
 app.set('views','./views');
@@ -41,11 +43,11 @@ app.set('layout extractStyles',true);
 
 app.set('layout extractScripts',true);
 app.use(express.static('./assets'));
-
+const Mongoclient= require('mongodb');
 
 // middlewaare 
-// mongo store us used to store the sessio  cookie in the db
-/*
+// mongo store us used to store the session  cookie in the db
+
 app.use(session({
     name:'social-house',
     secret:"blahsomething",
@@ -53,19 +55,11 @@ app.use(session({
     resave:false,
     cookie:{
         maxAge:(1000 * 60 *100)
-    },
-    store:new MongoStore(
-        {
-            mongooseConnection:db,
-            autoRemove:'disabled'
-        },
-        function(err){
-            console.log(err||'connect mongodb set up ok');
-        }
-    )
+    }
 }));
 
-*/
+app.use(flash());
+app.use(customMware.setflash);
 app.use(passport.initialize());
 app.use(passport.session());
 // this miidleware calls the setauthenticated function and usees the session cookie to feed the view with users info

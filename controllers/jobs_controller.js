@@ -34,7 +34,7 @@ module.exports.dailywagers= function(req,res){
 
 
 
-module.exports.internships= function(req,res){
+module.exports.all= function(req,res){
 
 	Post.find({}).
 	populate('user').
@@ -50,9 +50,9 @@ module.exports.internships= function(req,res){
 
 
 
-    	return res.render('jobs',{
+    	return res.render('newjobs',{
 			title:"Jobs",
-			x:"Daily Wages",
+			x:"New Jobs..",
 			posts:posts,
 			all_users:users
 		});

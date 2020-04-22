@@ -87,18 +87,20 @@ module.exports.jobseekercreate=function(req,res)
             return}
 
             if (!user){
-            User.create({name:req.body.name,identity:req.body.id,email:req.body.email,password:req.body.password,type:"jobseeker",employment:req.body.employment},function(err,user){
+            User.create({name:req.body.name,identity:req.body.id,email:req.body.email,password:req.body.password,type:"jobseeker",employment:req.body.employment},function(err,u){
                 if (err){console.log('error in  signing up');
                 return}
-
-                return res.render('signin',{title:"sign in"});
-            })
+                else if(u){
+                    return res.render('signin',{title:"sign in"});
+            }
+            });
             }
             else{
                 return res.redirect('back');
             }
 
     });
+    return res.render('signin',{title:"sign in"});
     
 }
 //creating a user
@@ -107,6 +109,7 @@ module.exports.create=function(req,res)
 
     if (req.body.password!=req.body.confirm_password)
     {
+        console.log("password err");
         res.redirect('back');
     }
 
@@ -118,12 +121,13 @@ module.exports.create=function(req,res)
             return}
 
             if (!user){
-            User.create({name:req.body.name,identity:req.body.id,email:req.body.email,password:req.body.password,type:"recruiter"},function(err,user){
-                if (err){console.log('error in  signing up');
+            User.create({name:req.body.name,identity:req.body.id,email:req.body.email,password:req.body.password,type:"recruiter"},function(err,u){
+                if (err){
+                    console.log('error in  signing up');
                 return}
 
                 return res.render('signin',{title:"sign in"});
-            })
+            });
             }
             else{
                 return res.redirect('back');
@@ -135,7 +139,34 @@ module.exports.create=function(req,res)
 
 
 
+module.exports.apply=function(req,res){
+    console.log("here");
+    Post.find({}).
+    populate('user').
+    populate({
+        path:'applications',
+        populate :{path:'user'}
+     })
+    .exec(function(err,posts)
 
+{
+
+    User.find({},function(err,users){
+
+
+
+        return res.render('applications',{
+            title:"Applications",
+            posts:posts,
+            all_users:users
+        });
+
+    });
+
+
+        
+    });
+}
 
 /*module.exports.update= async function(req,res){
     console.log('heree')
@@ -167,17 +198,40 @@ module.exports.create=function(req,res)
 }*/
 
 //create session
-module.exports.apply=function(req,res){
+module.exports.applications=function(req,res){
+    
+    
     User.find({}).populate('post').exec(function(err,users){
-        User.findById(req.params.id,function(err,user){
-            console.log(user.post);
-              return res.render('apply',{title:user.name,u:user});
+    Post.find({},function(err,posts){
+
+        User.findById(req.params.id,function(err,u){
+
+             console.log("qwqwq");
+                return res.render('apply',{
+            title:"Applied",
+            posts:posts,
+            users:users,
+            user:u
+        });
+
+        });
+               
+
+            
+
+            
+
         });
         
-    });
+    
+});
+
 }
 module.exports.createSession=function(req,res)
+
 {
+    req.flash('success','Logged in Successfully');
+
     return res.redirect('/');
 }
 
@@ -185,5 +239,6 @@ module.exports.createSession=function(req,res)
 // action for logging out
 module.exports.destroySession=function(req,res){
     req.logout();
+    req.flash('success','Logged Out');
     return res.redirect('/');
 }

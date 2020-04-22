@@ -1,7 +1,7 @@
 
 <div id="posts-container-list" class="container-fluid pt-2  ">
 
-	<div class="section_header text-center ">
+	<div class="section_header text-center h1 bg-primary text-light">
 			<%=x%> Recruiters
 		</div>
 <div class="container " >
@@ -11,20 +11,20 @@
 
 
 
-		<div class="col-lg-3 col-md-3 col-6 mt-3 border border-dark mr-2">
+		<div class="col-lg-3 col-md-3 col-6 mt-3 border border-light text-light bg2 mr-2">
 
 
            
       
-           <li  id="post-<%=post._id%>">
-           <p>
-             <%=post.user.name %>
+    
+           <p class="pt-2 ">
+             Company:<%=post.user.name %>
              <br>
-             <%=post.profile%>
+             Profile:<%=post.profile%>
              <br>
-             <%=post.salary%>
+             Salary :<%=post.salary%> per <%=post.per%>
              <br>
-             <%=post.requirements%>
+             Essentials :<%=post.requirements%>
              
              <br>
              
@@ -32,7 +32,7 @@
              
            </p>
 
-           </li>
+          
        
 
 		</div>

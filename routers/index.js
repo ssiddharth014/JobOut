@@ -18,6 +18,7 @@ router.use('/comments',(require('./comments')));
 
 
 router.use('/jobs',require('./jobs'));
+router.use('/internships',require('./internships'));
 
 router.use('/recruiters',require('./recruiters'));
 //5

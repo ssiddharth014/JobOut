@@ -21,7 +21,9 @@ router.get('/signUp',usersController.signUp);
 router.get('/jobseekerSignup',usersController.jobseekerSignup);
 router.get('/signIn',usersController.signIn);
 router.get('/jobseekerSignin',usersController.jobseekerSignin);
+router.get('/applications/:id',usersController.applications);
 router.get('/apply/:id',usersController.apply);
+//router.get('/applications/:id',usersController.applications);
 
 router.post('/create',usersController.create);
 router.post('/jobseekercreate',usersController.jobseekercreate);

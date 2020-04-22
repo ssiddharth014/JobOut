@@ -1,3 +1,4 @@
+
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
   <div class="carousel-inner" style="height: 30vh">
     <div class="carousel-item active">
@@ -22,28 +23,31 @@
 
 <section id="feed-posts">
 <%if (locals.user &&  locals.user.type=="recruiter"){%>
+
+<h2 class="bg-primary mt-3 text-center">Since you are a recruiter you can only post jobs but not apply </h2>
+
 <h2 class="ml-5"> Recruitung Details...</h2>
-	<form class="ml-5" action="/posts/create"  id="new-post-form" method="post">
-  <div class="form-group ">
+	<form class="ml-5 " action="/posts/create "  id="new-post-form" method="post">
+  <div class="form-group bg-dark text-white ">
     <label for="exampleFormControlSelect1">Employment Type</label>
-    <select name="employmentType"class="form-control" id="exampleFormControlSelect1">
+    <select name="employmentType"class="form-control bg-dark text-white" id="exampleFormControlSelect1">
       <option>Daily Wages</option>
       <option>Internships</option>
       <option>Full time role</option>
     </select>
   </div>
-  <div class="form-group">
+  <div class="form-group bg-dark text-white">
     <label for="exampleFormControlInput1">Profile/Work</label>
-    <input name="profile"type="text" class="form-control" id="exampleFormControlInput1" placeholder="Web Developer">
+    <input name="profile"type="text" class="form-control bg-dark text-white" id="exampleFormControlInput1" placeholder="Web Developer">
   </div>
-  <div class="form-group">
+  <div class="form-group bg-dark text-white">
     <label for="exampleFormControlInput1">Salary</label>
-    <input name="salary"type="number" class="form-control" id="exampleFormControlInput1" >
+    <input name="salary"type="number" class="form-control bg-dark text-white" id="exampleFormControlInput1" >
   </div>
 
-  <div class="form-group ">
+  <div class="form-group bg-dark text-white">
     <label for="exampleFormControlSelect1">Per</label>
-    <select name="per"class="form-control" id="exampleFormControlSelect1">
+    <select name="per"class="form-control bg-dark text-white" id="exampleFormControlSelect1">
       <option>daily</option>
       <option>month</option>
       <option>annualy</option>
@@ -51,161 +55,96 @@
     </select>
   </div>
   
-  <div class="form-group">
+  <div class="form-group bg-dark text-white">
     <label for="exampleFormControlTextarea1">Requirements</label>
-    <textarea name="requirements" class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <textarea name="requirements" class="form-control bg-dark text-white" id="exampleFormControlTextarea1" rows="3"></textarea>
   </div>
   <input type="submit" name="Submit">
 </form>
 
 <%}%>
 
+<div id="posts-container-list " class="container-fluid pt-2  ">
+
+	<div class="section_header text-center text-light h1 bg1 btn-outline-dark ">
+       <a class="  text-light btn-outline-dark" href="/jobs/all">New Jobs..</a>
+    </div>
+<div class="container bg-light " >
+	<div class="row bg3 "  style="flex-wrap: nowrap;overflow-x: scroll">
+		<% for (post of posts) {%>
+
+		<div class="col-lg-4 col-md-4 col-6 mt-3 border border-light mr-4 text-light bg2">
+
+           <p class="pt-2">
+             Company:<%=post.user.name %>
+             <br>
+             Profile:<%=post.profile%>
+             <br>
+             <span style="overflow:wrap">Essentials:
+             <%=post.requirements%></span>
+             <br>
+             Pay:<%=post.salary%> per <%=post.per%>
+             <br>
+             
+             
+            <%if(locals.user && locals.user.type=="jobseeker"){%>
+          
+              <form action="/posts/<%=post.user.identity%>/<%=post._id%>/<%=user._id%>" method="get">
+             	<button>Apply</button>
+             </form>
+
+             <%} else if(!locals.user) {%>
+             <form action="/users/jobseekerSignin" method="get">
+             	<button>Apply</button>
+             </form>
+             <%}%>
+             
+           </p>
+
+
+<%if(locals.user && locals.user.id==post.user.id){%>
+
+<a class="delete-post-button" href="/posts/destroy/<%=post.id%>">X </a>
+
+
+<%}%>
+</div>
+		 <%}%>
+	</div>
+</div>
+
+  
+</div>
+
+
 
 <div id="posts-container-list" class="container-fluid pt-2  ">
 
-	<div class="section_header text-center ">
-			New Added jobs..
+	<div class="section_header text-center h1 bg1 btn-outline-dark text-light ">
+			<a class="text-light btn-outline-dark" href="/jobs/dailywagers">Jobs for Daily Wagers </a>
 		</div>
-<div class="container " >
-	<div class="row "  style="flex-wrap: nowrap;overflow-x: scroll">
+<div class="container bg-light " >
+	<div class="row bg3 "  style="flex-wrap: nowrap;overflow-x: scroll">
 		<% for (post of posts) {%>
-
-		<div class="col-lg-4 col-md-4 col-6 mt-3 border border-dark mr-4">
+		<%if(post.employmentType=="Daily Wages"){%>
+		<div class="col-lg-4 col-md-4 col-6 mt-3 border border-light bg2 text-light mr-4">
 
 
            
-      
-           <li  id="post-<%=post._id%>">
-           <p>
-             <%=post.employmentType %>
+      <p class="pt-2">
+             Company:<%=post.user.name %>
              <br>
-             <%=post.profile%>
+             Profile:<%=post.profile%>
              <br>
-             <%=post.salary%>
+             <span style="overflow:wrap">Essentials:
+             <%=post.requirements%></span>
              <br>
-             <%=post.requirements%>
-             <small>
-               <%=post.user.name %>
-            
-             </small>
+             Pay:<%=post.salary%> per <%=post.per%>
              <br>
              
 <%if(locals.user && locals.user.type=="jobseeker"){%>
-          
-              <form action="/posts/<%=post.user.identity%>/<%=post._id%>" method="get">
-             	<button>Apply</button>
-             </form>
-
-             <%} else {%>
-             <form action="/users/jobseekerSignin" method="get">
-             	<button>Apply</button>
-             </form>
-             <%}%>
-             
-           </p>
-
-
-<%if(locals.user && locals.user.id==post.user.id){%>
-
-<a class="delete-post-button" href="/posts/destroy/<%=post.id%>">X </a>
-
-
-<%}%>
-
-<div class="post_comments">
-
-<%if (locals.user){%>
-<form action ="/comments/create/<%= post._id%>" method="post">
-
-
-<input  type="text" name="content" placeholder="Type here..." >
-<input  type="hidden" name="post" value="<%= post._id%>" >
-<input type="submit" value="Add comment">
-
-</form>
-
-
-<%}%>
-
-
-
-
-
-
-<div>
-<ul>
-<%for(comments of post.comment){%>
-
-<li >
-<p>
-<%=comments.content%>
-<br>
-<small>
-<%=comments.user.name%>
-</small>
-</p>
-<%if (locals.user && locals.user.id==comments.user.id){%>
-<form action="/comments/destroy/<%=comments._id%>" method="post">
-
-<input type="submit" value="Delete Comment">
-</form>
-<%}%>
-</li>
-<%}%>
-</ul>
-</div>
-
-</div>
-
-
-
-
-
-           </li>
-       
-
-		</div>
-		 <%}%>
-	</div>
-</div>
-
-  
-</div>
-
-
-
-<div id="posts-container-list" class="container-fluid pt-2  ">
-
-	<div class="section_header text-center ">
-			Jobs for daily wagers
-		</div>
-<div class="container " >
-	<div class="row "  style="flex-wrap: nowrap;overflow-x: scroll">
-		<% for (post of posts) {%>
-		<%if(post.employmentType=="Daily Wages"){%>
-		<div class="col-lg-4 col-md-4 col-6 mt-3 border border-dark mr-4">
-
-
-           
-      
-           <li  id="post-<%=post._id%>">
-           <p>
-             <%=post.employmentType %>
-             <br>
-             <%=post.profile%>
-             <br>
-             <%=post.salary%>
-             <br>
-             <%=post.requirements%>
-             <small>
-               <%=post.user.name %>
-            
-             </small>
-             <br>
-             
-<%if(locals.user && locals.user.type!="recruiter"){%>
              <button >Apply</button>
-             <%}else {%>
+             <%}else if(!locals.user) {%>
              <form action="/users/jobseekerSignin" method="get">
              	<button>Apply</button>
              </form>
@@ -219,58 +158,6 @@
 
 
 <%}%>
-
-<div class="post_comments">
-
-<%if (locals.user){%>
-<form action ="/comments/create/<%= post._id%>" method="post">
-
-
-<input  type="text" name="content" placeholder="Type here..." >
-<input  type="hidden" name="post" value="<%= post._id%>" >
-<input type="submit" value="Add comment">
-
-</form>
-
-
-<%}%>
-
-
-
-
-
-
-<div>
-<ul>
-<%for(comments of post.comment){%>
-
-<li >
-<p>
-<%=comments.content%>
-<br>
-<small>
-<%=comments.user.name%>
-</small>
-</p>
-<%if (locals.user && locals.user.id==comments.user.id){%>
-<form action="/comments/destroy/<%=comments._id%>" method="post">
-
-<input type="submit" value="Delete Comment">
-</form>
-<%}%>
-</li>
-<%}%>
-</ul>
-</div>
-
-</div>
-
-
-
-
-
-           </li>
-       
 
 		</div>
 		<%}%>
@@ -284,36 +171,32 @@
 
 <div id="posts-container-list" class="container-fluid pt-2  ">
 
-	<div class="section_header text-center ">
-			Internships
-		</div>
-<div class="container " >
-	<div class="row "  style="flex-wrap: nowrap;overflow-x: scroll">
+	<div class="section_header text-center text-light h1 bg1 btn-outline-dark ">
+       <a class="  text-light btn-outline-dark" href="/internships/all">Internships</a>
+    </div>
+<div class="container bg-light " >
+	<div class="row bg3"  style="flex-wrap: nowrap;overflow-x: scroll">
 		<% for (post of posts) {%>
 		<%if(post.employmentType=="Internships"){%>
-		<div class="col-lg-4 col-md-4 col-12 mt-3 border border-dark mr-4">
+		<div class="col-lg-4 col-md-4 col-6 mt-3 border border-light mr-4 text-light bg2">
 
 
            
       
-           <li  id="post-<%=post._id%>">
-           <p>
-             <%=post.employmentType %>
+           <p class="pt-2">
+             Company:<%=post.user.name %>
              <br>
-             <%=post.profile%>
+             Profile:<%=post.profile%>
              <br>
-             <%=post.salary%>
+             <span style="overflow:wrap">Essentials:
+             <%=post.requirements%></span>
              <br>
-             <%=post.requirements%>
-             <small>
-               <%=post.user.name %>
-            
-             </small>
+             Pay:<%=post.salary%> per <%=post.per%>
              <br>
              
-<%if(locals.user && locals.user.type!="recruiter"){%>
+<%if(locals.user && locals.user.type=="jobseeker"){%>
              <button >Apply</button>
-             <%}else {%>
+             <%}else if(!locals.user){%>
              <form action="/users/jobseekerSignin" method="get">
              	<button>Apply</button>
              </form>
@@ -327,60 +210,7 @@
 
 
 <%}%>
-
-<div class="post_comments">
-
-<%if (locals.user){%>
-<form action ="/comments/create/<%= post._id%>" method="post">
-
-
-<input  type="text" name="content" placeholder="Type here..." >
-<input  type="hidden" name="post" value="<%= post._id%>" >
-<input type="submit" value="Add comment">
-
-</form>
-
-
-<%}%>
-
-
-
-
-
-
-<div>
-<ul>
-<%for(comments of post.comment){%>
-
-<li >
-<p>
-<%=comments.content%>
-<br>
-<small>
-<%=comments.user.name%>
-</small>
-</p>
-<%if (locals.user && locals.user.id==comments.user.id){%>
-<form action="/comments/destroy/<%=comments._id%>" method="post">
-
-<input type="submit" value="Delete Comment">
-</form>
-<%}%>
-</li>
-<%}%>
-</ul>
 </div>
-
-</div>
-
-
-
-
-
-           </li>
-       
-
-		</div>
 		<%}%>
 		 <%}%>
 	</div>
@@ -392,36 +222,31 @@
 
 <div id="posts-container-list" class="container-fluid pt-2  ">
 
-	<div class="section_header text-center ">
-			Jobs
+	<div class="section_header text-center text-light h1 bg1 btn-outline-dark ">
+			 <a class="  text-light btn-outline-dark" href="/jobs/experience">Full time roles</a>
 		</div>
-<div class="container " >
-	<div class="row "  style="flex-wrap: nowrap;overflow-x: scroll">
+<div class="container bg-light " >
+	<div class="row bg3 "  style="flex-wrap: nowrap;overflow-x: scroll">
 		<% for (post of posts) {%>
 		<%if(post.employmentType=="Full time role"){%>
-		<div class="col-lg-4 col-md-4 col-12 mt-3 border border-dark mr-4">
+		<div class="col-lg-4 col-md-4 col-6 mt-3 border border-light mr-4 text-light bg2">
 
 
            
-      
-           <li  id="post-<%=post._id%>">
-           <p>
-             <%=post.employmentType %>
+      <p class="pt-2">
+             Company:<%=post.user.name %>
              <br>
-             <%=post.profile%>
+             Profile:<%=post.profile%>
              <br>
-             <%=post.salary%>
+             <span style="overflow:wrap">Essentials:
+             <%=post.requirements%></span>
              <br>
-             <%=post.requirements%>
-             <small>
-               <%=post.user.name %>
-            
-             </small>
+             Pay:<%=post.salary%> per <%=post.per%>
              <br>
              
-<%if(locals.user && locals.user.type!="recruiter"){%>
+<%if(locals.user && locals.user.type=="jobseeker"){%>
              <button >Apply</button>
-             <%}else {%>
+             <%}else if(!locals.user ) {%>
              <form action="/users/jobseekerSignin" method="get">
              	<button>Apply</button>
              </form>
@@ -435,58 +260,7 @@
 
 
 <%}%>
-
-<div class="post_comments">
-
-<%if (locals.user){%>
-<form action ="/comments/create/<%= post._id%>" method="post">
-
-
-<input  type="text" name="content" placeholder="Type here..." >
-<input  type="hidden" name="post" value="<%= post._id%>" >
-<input type="submit" value="Add comment">
-
-</form>
-
-
-<%}%>
-
-
-
-
-
-
-<div>
-<ul>
-<%for(comments of post.comment){%>
-
-<li >
-<p>
-<%=comments.content%>
-<br>
-<small>
-<%=comments.user.name%>
-</small>
-</p>
-<%if (locals.user && locals.user.id==comments.user.id){%>
-<form action="/comments/destroy/<%=comments._id%>" method="post">
-
-<input type="submit" value="Delete Comment">
-</form>
-<%}%>
-</li>
-<%}%>
-</ul>
-</div>
-
-</div>
-
-
-
-
-
-           </li>
-       
+</li>       
 
 		</div>
 		 <%}%>
@@ -498,29 +272,7 @@
 </div>
 </section>
 
-<section>
-<div class="users-list">
-<ul>
 
-<h1>USERS....</h1>
-<% for(complete_users of all_users){%>
-
-<li>
-
-<a href="/users/profile/<%=complete_users.id%>"><%=complete_users.name%></a>
-</li>
-
-<%}%>
-
-
-
-
-
-
-
-
-
-</ul>
 </section>
 <script>
 </script>

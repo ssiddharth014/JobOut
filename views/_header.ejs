@@ -4,8 +4,8 @@
  
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar navbar-expand-lg navbar-light bg3">
+  <a class="navbar-brand" href="#">JobOut</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -21,7 +21,11 @@
  </li>
 
 <li  class="nav-item active">
-<a href="/users/apply/<%=user.id%>" class="nav-link">Applied</a
+<% if(user.type=="jobseeker"){%>
+<a href="/users/applications/<%=user._id%>" class="nav-link">Applied</a>
+<%} else {%>
+<a href="/users/apply/<%=user._id%>" class="nav-link">Applications</a>
+<%}%>
 </li>
 
  </li>
@@ -30,10 +34,10 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Jobs
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Jobs for daily wagers</a>
-          <a class="dropdown-item" href="#">Jobs for freshers</a>
-          <a class="dropdown-item" href="#">Jobs for Experienced</a>
+       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/jobs/dailywagers">Jobs for daily wagers</a>
+          <a class="dropdown-item" href="/jobs/fresher">Jobs for freshers</a>
+          <a class="dropdown-item" href="/jobs/experience">Jobs for Experienced</a>
           
         </div>
       </li>
@@ -43,9 +47,9 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Internships
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Paid Internships</a>
-          <a class="dropdown-item" href="#">Unpaid Interships</a>
+         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/internships/paid">Paid Internships</a>
+          <a class="dropdown-item" href="/internships/unpaid">Unpaid Interships</a>
      
         </div>
       </li>
@@ -54,23 +58,23 @@
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Recruiters
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Recuiters for daily wagers</a>
-          <a class="dropdown-item" href="#">Recuiters for interns</a>
-           <a class="dropdown-item" href="#">Recuiters for Full-Time</a>
+       <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/recruiters/Daily Wages">Recruiters for daily wagers</a>
+          <a class="dropdown-item" href="/recruiters/Internships">Recruiters for interns</a>
+           <a class="dropdown-item" href="/recruiters/Full time role">Recruiters for Full-Time</a>
      
         </div>
       </li>
       </ul>
       
       <ul class="navbar-nav  justify-content-end">
-      <li class="nav-item active"><a class="nav-link" href="/users/signOut"> signOut </a>
+      <li class="nav-item active"><a class="nav-link" href="/users/signOut"> SignOut </a>
       </li>
      
     </ul>
   </div>
 </nav>
-<nav class="navbar navbar-light bg-light justify-content-center  ">
+<nav class="navbar navbar-light bg3 justify-content-center  ">
   <form class="form-inline ">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
@@ -137,8 +141,8 @@
 
 
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar navbar-expand-lg navbar-light bg3">
+  <a class="navbar-brand" href="#">JobOut</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -167,8 +171,8 @@
           Internships
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Paid Internships</a>
-          <a class="dropdown-item" href="#">Unpaid Interships</a>
+          <a class="dropdown-item" href="/internships/paid">Paid Internships</a>
+          <a class="dropdown-item" href="/internships/unpaid">Unpaid Interships</a>
      
         </div>
       </li>
@@ -211,7 +215,7 @@
     </ul>
   </div>
 </nav>
-<nav class="navbar navbar-light bg-light justify-content-center  ">
+<nav class="navbar navbar-light bg3 justify-content-center  ">
   <form class="form-inline ">
     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>

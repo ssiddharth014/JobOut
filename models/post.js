@@ -31,8 +31,9 @@ const postSchema=new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    appliers:[{
-       ids:{type:Number}
+    applications:[{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
     }],
 
      comment:[{

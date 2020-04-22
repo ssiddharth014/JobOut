@@ -85,27 +85,29 @@ module.exports.destroy=function(req,res){
 module.exports.setup=function(req,res){
 
 
-	Post.findById(req.params.id2,function(err,post){
-		if(post)
+	Post.findById(req.params.id2,function(err,posts){
+		if(posts)
 		{
-			post.appliers.push({ids:req.params.id1});
-			post.save();
-			User.findOne({identity:req.params.id1},function(err,user){
+			User.findById(req.params.id3,function(err,user){
 				if(user)
 				{
-					user.post.push(post._id);
+
+                      
+					posts.applications.push(user);
+			        posts.save();
+					user.post.push(posts);
 					user.save();
 					console.log(user);
 				}
-			})
-			console.log(post);
+			});
+			console.log(posts);
 			return res.redirect('/');
 		}
 		if(err)
 		{
-			console.log("eror in creating",err)
+			console.log("error in creating",err)
 			return ;
 		}
-	})
+	});
 
 }
