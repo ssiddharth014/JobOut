@@ -22,8 +22,8 @@ const passport=require('passport');
 const passportLocal= require('./config/passport-local-strategy');
 
 const MongoStore=require('connect-Mongo')(session);
-const flash= require('connect-flash');
-const customMware= require('./config/middleware');
+//const flash= require('connect-flash');
+//const customMware= require('./config/middleware');
 //middleware for post request
 app.use(express.urlencoded());
 //middleware for cookie
@@ -57,8 +57,8 @@ app.use(session({
     }
 }));
 
-app.use(flash());
-app.use(customMware.setflash);
+//app.use(flash());
+//app.use(customMware.setflash);
 app.use(passport.initialize());
 app.use(passport.session());
 // this miidleware calls the setauthenticated function and usees the session cookie to feed the view with users info

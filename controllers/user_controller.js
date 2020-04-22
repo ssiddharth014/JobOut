@@ -230,7 +230,7 @@ module.exports.applications=function(req,res){
 module.exports.createSession=function(req,res)
 
 {
-    req.flash('success','Logged in Successfully');
+   // req.flash('success','Logged in Successfully');
 
     return res.redirect('/');
 }
@@ -239,6 +239,6 @@ module.exports.createSession=function(req,res)
 // action for logging out
 module.exports.destroySession=function(req,res){
     req.logout();
-    req.flash('success','Logged Out');
+  //  req.flash('success','Logged Out');
     return res.redirect('/');
 }
