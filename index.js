@@ -22,8 +22,8 @@ const passport=require('passport');
 const passportLocal= require('./config/passport-local-strategy');
 
 const MongoStore=require('connect-Mongo')(session);
-//const flash= require('connect-flash');
-//const customMware= require('./config/middleware');
+const flash= require('connect-flash');
+const customMware= require('./config/middleware');
 //middleware for post request
 app.use(express.urlencoded());
 //middleware for cookie
@@ -43,6 +43,7 @@ app.set('layout extractStyles',true);
 
 app.set('layout extractScripts',true);
 app.use(express.static('./assets'));
+const Mongoclient= require('mongodb');
 
 // middlewaare 
 // mongo store us used to store the session  cookie in the db
