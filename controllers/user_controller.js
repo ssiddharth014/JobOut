@@ -121,10 +121,10 @@ module.exports.create=function(req,res)
             return}
 
             if (!user){
-            User.create({name:req.body.name,email:req.body.email,password:req.body.password,type:"recruiter"},function(err,u){
+            User.create({name:req.body.name,identity:req.body.id,email:req.body.email,password:req.body.password,type:"recruiter"},function(err,u){
                 if (err){
                     console.log('error in  signing up');
-                return}
+                return res.redirect('back');}
 
                 return res.render('signin',{title:"sign in"});
             });
@@ -153,10 +153,10 @@ module.exports.jobseekercreate=function(req,res)
             return}
 
             if (!user){
-            User.create({name:req.body.name,email:req.body.email,password:req.body.password,type:"jobseeker"},function(err,u){
+            User.create({name:req.body.name,identity:req.body.id,email:req.body.email,password:req.body.password,type:"jobseeker"},function(err,u){
                 if (err){
                     console.log('error in  signing up');
-                return}
+                return res.redirect('back');}
 
                 return res.render('jobseekerSignin',{title:"sign in"});
             });
