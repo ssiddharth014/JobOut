@@ -22,6 +22,7 @@ const passport=require('passport');
 const passportLocal= require('./config/passport-local-strategy');
 
 const MongoStore=require('connect-Mongo')(session);
+
 //middleware for post request
 app.use(express.urlencoded());
 //middleware for cookie
@@ -53,7 +54,7 @@ app.use(session({
     cookie:{
         maxAge:(1000 * 60 *100)
     }
-}));*/
+}));
 app.use(express.session({
     name:'jobout',
     secret: 'keyboard cat',
@@ -62,6 +63,16 @@ app.use(express.session({
     store: new MongoStore({
         url: 'mongodb+srv://foodshalauser:foodshala@foodshalacluster-xsd3l.mongodb.net/test?retryWrites=true&w=majority',
         touchAfter: 24 * 3600 // time period in seconds
+    })
+}));*/
+app.use(session({
+    name:'jobout',
+    secret: 'keyboard cat',
+    saveUninitialized: false, // don't create session until something stored
+    resave: false,
+    store: new MongoStore({
+        url: 'mongodb+srv://foodshalauser:foodshala@foodshalacluster-xsd3l.mongodb.net/test?retryWrites=true&w=majority',
+        autoRemove: 'disabled'
     })
 }));
 //app.use(flash());
