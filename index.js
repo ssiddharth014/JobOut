@@ -1,6 +1,6 @@
 const express=require('express');
 const cookieParser=require('cookie-parser');
-const http=require('http');
+//const http=require('http');
 //const path=require('path');
 const port=process.env.PORT || 5000;
 const app=express();
@@ -21,7 +21,7 @@ const passport=require('passport');
 
 const passportLocal= require('./config/passport-local-strategy');
 
-//const MongoStore=require('connect-Mongo')(session);
+const MongoStore=require('connect-Mongo')(session);
 //middleware for post request
 app.use(express.urlencoded());
 //middleware for cookie
@@ -44,7 +44,7 @@ app.use(express.static('./assets'));
 
 // middlewaare 
 // mongo store us used to store the session  cookie in the db
-/*
+
 app.use(session({
     name:'social-house',
     secret:"blahsomething",
@@ -54,7 +54,7 @@ app.use(session({
         maxAge:(1000 * 60 *100)
     }
 }));
-*/
+
 //app.use(flash());
 //app.use(customMware.setflash);
 app.use(passport.initialize());
