@@ -43,7 +43,6 @@ app.set('layout extractStyles',true);
 
 app.set('layout extractScripts',true);
 app.use(express.static('./assets'));
-const Mongoclient= require('mongodb');
 
 // middlewaare 
 // mongo store us used to store the session  cookie in the db
