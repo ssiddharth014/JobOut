@@ -70,8 +70,11 @@ app.use(session({
     secret: 'keyboard cat',
     saveUninitialized: false, // don't create session until something stored
     resave: false,
+    cookie:{
+        maxAge:(1000 *60 * 100)
+    },
     store: new MongoStore({
-        url: 'mongodb+srv://foodshalauser:foodshala@foodshalacluster-xsd3l.mongodb.net/test?retryWrites=true&w=majority',
+        url: "mongodb+srv://jobout:jobout@jobout-cqnps.mongodb.net/test?retryWrites=true&w=majority",
         autoRemove: 'disabled'
     })
 }));
