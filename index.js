@@ -21,7 +21,7 @@ const passport=require('passport');
 
 const passportLocal= require('./config/passport-local-strategy');
 
-const MongoStore=require('connect-Mongo')(session);
+//const MongoStore=require('connect-Mongo')(session);
 
 //middleware for post request
 app.use(express.urlencoded());
@@ -72,12 +72,14 @@ app.use(session({
     resave: false,
     cookie:{
         maxAge:(1000 *60 * 100)
-    },
+    }
+    })
+    );/*
     store: new MongoStore({
         url: "mongodb+srv://jobout:jobout@jobout-cqnps.mongodb.net/test?retryWrites=true&w=majority",
         autoRemove: 'disabled'
     })
-}));
+}));*/
 //app.use(flash());
 //app.use(customMware.setflash);
 app.use(passport.initialize());
