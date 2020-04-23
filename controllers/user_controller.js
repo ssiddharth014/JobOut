@@ -71,7 +71,7 @@ module.exports.jobseekerSignin=function(req,res){
 
 
 //creating a user
-module.exports.jobseekercreate=function(req,res)
+/*module.exports.jobseekercreate=function(req,res)
 {
 
     if (req.body.password!=req.body.confirm_password)
@@ -90,9 +90,9 @@ module.exports.jobseekercreate=function(req,res)
             User.create({name:req.body.name,identity:req.body.id,email:req.body.email,password:req.body.password,type:"jobseeker",employment:req.body.employment},function(err,u){
                 if (err){console.log('error in  signing up');
                 return}
-                else if(u){
-                    return res.render('signin',{title:"sign in"});
-            }
+            
+                    return res.render('jobseekerSignin',{title:"sign in"});
+            
             });
             }
             else{
@@ -102,7 +102,7 @@ module.exports.jobseekercreate=function(req,res)
     });
     return res.render('signin',{title:"sign in"});
     
-}
+}*/
 //creating a user
 module.exports.create=function(req,res)
 {
@@ -121,12 +121,44 @@ module.exports.create=function(req,res)
             return}
 
             if (!user){
-            User.create({name:req.body.name,identity:req.body.id,email:req.body.email,password:req.body.password,type:"recruiter"},function(err,u){
+            User.create({name:req.body.name,email:req.body.email,password:req.body.password,type:"recruiter"},function(err,u){
                 if (err){
                     console.log('error in  signing up');
                 return}
 
                 return res.render('signin',{title:"sign in"});
+            });
+            }
+            else{
+                return res.redirect('back');
+            }
+
+    });
+    
+}
+module.exports.jobseekercreate=function(req,res)
+{
+
+    if (req.body.password!=req.body.confirm_password)
+    {
+        console.log("password err");
+        res.redirect('back');
+    }
+
+
+    User.findOne({email:req.body.email},function(err,user){
+
+        if (err){
+            console.log('error in finding user in signing up');
+            return}
+
+            if (!user){
+            User.create({name:req.body.name,email:req.body.email,password:req.body.password,type:"jobseeker"},function(err,u){
+                if (err){
+                    console.log('error in  signing up');
+                return}
+
+                return res.render('jobseekerSignin',{title:"sign in"});
             });
             }
             else{
