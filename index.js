@@ -44,7 +44,7 @@ app.use(express.static('./assets'));
 
 // middlewaare 
 // mongo store us used to store the session  cookie in the db
-
+/*
 app.use(session({
     name:'social-house',
     secret:"blahsomething",
@@ -53,8 +53,17 @@ app.use(session({
     cookie:{
         maxAge:(1000 * 60 *100)
     }
+}));*/
+app.use(express.session({
+    name:'jobout',
+    secret: 'keyboard cat',
+    saveUninitialized: false, // don't create session until something stored
+    resave: false, //don't save session if unmodified
+    store: new MongoStore({
+        url: 'mongodb+srv://foodshalauser:foodshala@foodshalacluster-xsd3l.mongodb.net/test?retryWrites=true&w=majority',
+        touchAfter: 24 * 3600 // time period in seconds
+    })
 }));
-
 //app.use(flash());
 //app.use(customMware.setflash);
 app.use(passport.initialize());
