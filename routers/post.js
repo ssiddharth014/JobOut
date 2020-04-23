@@ -20,6 +20,6 @@ router.post('/create',passport.checkAuthentication,postController.create);
 
 
 router.get('/destroy/:id',passport.checkAuthentication,postController.destroy);
-router.get('/:id1/:id2/:id3',postController.setup);
+router.get('/:id2/:id3',postController.setup);
 
 module.exports=router;

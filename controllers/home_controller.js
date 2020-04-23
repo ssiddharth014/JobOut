@@ -16,7 +16,7 @@ module.exports.home=function(req,res){
 {
 
     User.find({},function(err,users){
-
+console.log(posts.length);
 
 
     	return res.render('home',{

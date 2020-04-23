@@ -1,11 +1,10 @@
-<div class="container ">
+
 <h1 class=" bg-info text-center text-light">Application Received..</h1>
-<div class="row justify-content-center   ">
+<div class="row justify-content-center ">
 <% for (post of posts) {%>
 
-<div class="col-lg-3 col-md-3 col-5 mt-5  border border-light bg-primary text-light mr-2">
 <%if(locals.user && locals.user.id==post.user.id){%>
-           <p>
+           <div class="col-lg-3 col-md-3 col-5 mt-3 border border-light bg-primary justify-content-center text-light mr-2">
              Applications for :<%=post.employmentType %>
              <br>
              Profile offered :<%=post.profile%>
@@ -14,7 +13,6 @@
              Salary offered :<%=post.salary%> per <%=post.per%>
              
        </div>
-       
 
 <div class="container " >
     <div class="row justify-content-center bg-primary "  >
@@ -23,20 +21,20 @@
            <div class="col-lg-3 col-md-3 col-5 mt-3 border border-light bg2 text-light mr-2">
 
              Applicants Email:<%=list.email%><br>
-             Applicants :Name:<%=list.name%><br>
+             Applicants Name:<%=list.name%><br>
            </div>
              <%}%>
      </div>
 </div>
-             </P>
+             
+
+<%}%>
 
 
 <%}%>
-<%}%>
-</div>
-</div>
 
 
+</div>
 
 
 
